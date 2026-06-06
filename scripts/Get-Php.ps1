@@ -75,8 +75,10 @@ $branch = 'master'
 if($Version -match '8.[0-5]') {
   $branch = "PHP-$Version"
 }
-$vs = 'vs17'
-if($Version -match '8.[0-3]') {
+$vs = 'vs18'
+if($Version -match '8.[4-5]') {
+  $vs = 'vs17'
+} elseif($Version -match '8.[0-3]') {
   $vs = 'vs16'
 }
 $semver = Get-File -Url "https://raw.githubusercontent.com/php/php-src/$branch/main/php_version.h" -FallbackUrl "https://cdn.jsdelivr.net/gh/php/php-src@$branch/main/php_version.h" -TimeoutSec 3 | Where-Object { $_  -match 'PHP_VERSION "(.*)"' } | Foreach-Object {$Matches[1]}
